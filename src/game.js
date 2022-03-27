@@ -25,7 +25,7 @@ class Game {
 
 
     init() {
-        console.log('Hello world');
+        this.player.run();
 
         if (!this.State.paused) {
             requestAnimationFrame(this.init.bind(this));
