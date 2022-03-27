@@ -15,7 +15,7 @@ export class Rect {
         this._updatePos();
 
         ctx.fillStyle = this.color;
-        ctx.fillRect( ...this.pos, ...this.size );
+        ctx.fillRect(...this.pos, ...this.size);
     }
 
 

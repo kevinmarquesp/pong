@@ -1,18 +1,14 @@
-import Globals from '../Helpers/Globals.js';
+import G from '../Helpers/Globals.js';
 import { Rect } from '../Helpers/Objects.js';
 
 
 export default class Player {
     constructor() {
-        this.main = new Rect({
-            x: 10, y: 10,
-            w: 30, h: 30,
-            color: 'white',
-        });
+        this._main = new Rect(G.Deffs().Rect.Player);
     }
 
 
     run() {
-        this.main.render();
+        this._main.render();
     }
 }

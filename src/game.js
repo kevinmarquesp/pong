@@ -1,5 +1,6 @@
+import Background from './Components/Background.js';
 import Player from './Components/Player.js';
-import Opponent from './Components/Player.js';
+import Opponent from './Components/Opponent.js';
 import Ball from './Components/Ball.js';
 
 
@@ -9,12 +10,13 @@ class Game {
             paused: true
         };
 
+        this.background = new Background();
         this.player = new Player();
         this.opponent = new Opponent();
 
         this.ball = new Ball({
             colision: {
-                borders: true,
+                corners: true,
                 colision: [
                     this.player,
                     this.opponent,
@@ -25,7 +27,11 @@ class Game {
 
 
     init() {
+        this.background.run();
+
         this.player.run();
+        this.opponent.run();
+        this.ball.run();
 
         if (!this.State.paused) {
             requestAnimationFrame(this.init.bind(this));
