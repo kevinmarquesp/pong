@@ -1,6 +1,6 @@
-import Player from './Helpers/Player.js';
-import Opponent from './Helpers/Player.js';
-import Ball from './Helpers/Ball.js';
+import Player from './Components/Player.js';
+import Opponent from './Components/Player.js';
+import Ball from './Components/Ball.js';
 
 
 class Game {

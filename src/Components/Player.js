@@ -1,4 +1,6 @@
-import { Globals, Rect } from './Globals.js';
+import Globals from '../Helpers/Globals.js';
+import { Rect } from '../Helpers/Objects.js';
+
 
 export default class Player {
     constructor() {
