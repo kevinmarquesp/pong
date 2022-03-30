@@ -7,6 +7,8 @@ export default class Ball {
         this.colision = props.colision;
 
         this._main = new Rect(G.Deffs().Rect.Ball);
+
+        console.log('%c[Components] Ball constructor loaded', 'color: yellow');
     }
 
 

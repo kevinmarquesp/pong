@@ -4,19 +4,21 @@ import { Rect, Path, Text } from '../Helpers/Objects.js';
 
 export default class Background {
     constructor() {
-        this._main = new Rect(G.Deffs().Rect.Background);
+        this._background = new Rect(G.Deffs().Rect.Background);
         this._path = new Path(G.Deffs().Path.Line);
 
-        this._playerText = new Text(G.Deffs().Text.Player);
-        this._opponentText = new Text(G.Deffs().Text.Opponent);
+        this.playerText = new Text(G.Deffs().Text.Player);
+        this.opponentText = new Text(G.Deffs().Text.Opponent);
+
+        console.log('%c[Components] Background constructor loaded', 'color: yellow');
     }
 
 
     run() {
-        this._main.render();
+        this._background.render();
         this._path.render();
 
-        this._playerText.render();
-        this._opponentText.render();
+        this.playerText.render();
+        this.opponentText.render();
     }
 }

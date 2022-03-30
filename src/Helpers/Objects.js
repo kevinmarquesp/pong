@@ -8,6 +8,8 @@ export class Rect {
         this.size =     [ props.w, props.h ];
         this.color =    props.color;
         this.vectorMv = props.vectorMv || [ 0, 0 ];
+
+        console.log('[Objects] Rect is used');
     }
 
 
@@ -18,6 +20,8 @@ export class Rect {
         ctx.fillRect(...this.pos, ...this.size);
     }
 
+
+    // Faz o retâgulo mudar de posição no próximo 'render()'
 
     _updatePos() {
         this.pos[0] += this.vectorMv[0];
@@ -36,6 +40,8 @@ export class Path {
         if (props.dotted) {
             this.dotted = [ props.dotted.dotSize, props.dotted.spaceSize ];
         }
+
+        console.log('[Objects] Path is used');
     }
 
 
@@ -47,6 +53,8 @@ export class Path {
         ctx.stroke();
     }
 
+
+    // Faz a linha pontilhada em Chromium e Mozilla based browsers
 
     _dottedStyle() {
         if (this.dotted) {
@@ -60,6 +68,8 @@ export class Path {
     }
 
 
+    // Configurações da linha de fato...
+
     _drawnPath() {
         ctx.lineWidth = this.w;
         ctx.strokeStyle = this.color;
@@ -72,10 +82,15 @@ export class Path {
 export class Text {
     constructor(props) {
         this.text  = props.text;
-        this.font  = `${props.size} ${props.font}`;
         this.pos   = [ props.x, props.y ];
+
+        // O tamanho e a fontes precisam estar na mesma string
+
+        this.font  = `${props.size} ${props.font}`;
         this.color = props.color;
         this.align = props.align;
+
+        console.log('[Objects] Text is used');
     }
 
 

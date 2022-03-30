@@ -1,16 +1,23 @@
 const $canvas = document.querySelector('#canvas');
 
-
 const G = {
     canvasW: $canvas.width,
     canvasH: $canvas.height,
 
+    // Atalhos para algumas constantes
+
     ballSize: 20,
+    ballVectorMv: [ 5, -2 ],
+
     playersPadding: 10,
     playersSize: { w: 10, h: 100 },
 
     gameLineWidth: 5,
+    gameFontSize: '20px',
+    gameFontFamilly: 'monospace',
+    gameTextPadding: 50,
 
+    // Definições dos objetos do jogo
 
     Deffs() {
         const G = this;
@@ -41,21 +48,21 @@ const G = {
             Text: {
                 Player: {
                     x: G.canvasW / 4,
-                    y: 50,
+                    y: G.gameTextPadding,
                     color: 'lightgray',
                     text: '0',
-                    font: 'monospace',
-                    size: '30px',
+                    font: G.gameFontFamilly,
+                    size: G.gameFontSize,
                     align: 'center',
                 },
 
                 Opponent: {
                     x: G.canvasW / 4 * 3,
-                    y: 50,
+                    y: G.gameTextPadding,
                     color: 'lightgray',
                     text: '0',
-                    font: 'monospace',
-                    size: '30px',
+                    font: G.gameFontFamilly,
+                    size: G.gameFontSize,
                     align: 'center',
                 },
             },
@@ -91,11 +98,12 @@ const G = {
                     w: G.ballSize,
                     h: G.ballSize,
                     color: 'white',
-                    vectorMv: [ 5, -2 ],
+                    vectorMv: G.ballVectorMv,
                 },
             },
         };
     },
 };
+
 
 export default G;

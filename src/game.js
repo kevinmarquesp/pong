@@ -14,6 +14,8 @@ class Game {
         this.player = new Player();
         this.opponent = new Opponent();
 
+        // 'Ball' precisa das informações de colisão (todos são 'Rects')
+
         this.ball = new Ball({
             colision: {
                 corners: true,
@@ -23,6 +25,8 @@ class Game {
                 ],
             },
         });
+
+        console.log('%c[Game] Game constructor loaded!', 'color: greenyellow');
     }
 
 
