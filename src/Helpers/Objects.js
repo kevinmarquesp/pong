@@ -67,3 +67,22 @@ export class Path {
         ctx.lineTo( ...this.end );
     }
 }
+
+
+export class Text {
+    constructor(props) {
+        this.text  = props.text;
+        this.font  = `${props.size} ${props.font}`;
+        this.pos   = [ props.x, props.y ];
+        this.color = props.color;
+        this.align = props.align;
+    }
+
+
+    render() {
+        ctx.font = this.font;
+        ctx.fillStyle = this.color;
+        ctx.textAlign = this.align;
+        ctx.fillText( this.text, ...this.pos );
+    }
+}

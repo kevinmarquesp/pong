@@ -38,6 +38,28 @@ const G = {
                 },
             },
 
+            Text: {
+                Player: {
+                    x: G.canvasW / 4,
+                    y: 50,
+                    color: 'lightgray',
+                    text: '0',
+                    font: 'monospace',
+                    size: '30px',
+                    align: 'center',
+                },
+
+                Opponent: {
+                    x: G.canvasW / 4 * 3,
+                    y: 50,
+                    color: 'lightgray',
+                    text: '0',
+                    font: 'monospace',
+                    size: '30px',
+                    align: 'center',
+                },
+            },
+
             Rect: {
                 Background: {
                     x: 0,
