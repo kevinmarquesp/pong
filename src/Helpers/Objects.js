@@ -24,3 +24,46 @@ export class Rect {
         this.pos[1] += this.vectorMv[1];
     }
 }
+
+
+export class Path {
+    constructor(props) {
+        this.begin =  [ props.begin.x, props.begin.y ];
+        this.end =    [ props.end.x, props.end.y ];
+        this.w =      props.w;
+        this.color =  props.color;
+
+        if (props.dotted) {
+            this.dotted = [ props.dotted.dotSize, props.dotted.spaceSize ];
+        }
+    }
+
+
+    render() {
+        this._dottedStyle();
+
+        ctx.beginPath();
+        this._drawnPath();
+        ctx.stroke();
+    }
+
+
+    _dottedStyle() {
+        if (this.dotted) {
+            if (ctx.setLineDash) {
+                ctx.setLineDash(this.dotted);
+
+            } else if (ctx.mozDash) {
+                ctx.mozDash(this.dotted);
+            }
+        }
+    }
+
+
+    _drawnPath() {
+        ctx.lineWidth = this.w;
+        ctx.strokeStyle = this.color;
+        ctx.moveTo( ...this.begin );
+        ctx.lineTo( ...this.end );
+    }
+}
