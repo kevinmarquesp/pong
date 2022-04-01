@@ -7,7 +7,7 @@ import Ball from './Components/Ball.js';
 class Game {
     constructor() {
         this.State = {
-            paused: true
+            // paused: true
         };
 
         this.background = new Background();
