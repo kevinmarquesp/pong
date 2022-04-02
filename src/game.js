@@ -19,7 +19,7 @@ class Game {
         this.ball = new Ball({
             colision: {
                 corners: true,
-                colision: [
+                elements: [
                     this.player,
                     this.opponent,
                 ],

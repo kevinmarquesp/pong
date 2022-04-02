@@ -4,13 +4,13 @@ import { Rect } from '../Helpers/Objects.js';
 
 export default class Opponent {
     constructor() {
-        this._main = new Rect(G.Deffs().Rect.Opponent);
+        this.main = new Rect(G.Deffs().Rect.Opponent);
 
         console.log('%c[Components] Opponent constructor loaded', 'color: yellow');
     }
 
 
     run() {
-        this._main.render();
+        this.main.render();
     }
 }

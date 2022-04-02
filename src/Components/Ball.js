@@ -14,12 +14,12 @@ export default class Ball {
 
 
     run() {
-        this._main.render();
-
         if (this._colision) {
             this._updateHitbox();
             this._checkColisionProps();
         }
+
+        this._main.render();
     }
 
 
@@ -34,6 +34,10 @@ export default class Ball {
     _checkColisionProps() {
         if (this._colision.corners) {
             this._cornersColisionDetection();
+        }
+
+        if (this._colision.elements.length !== 0) {
+            this._elementsColisionDetection();
         }
     }
 
@@ -54,5 +58,60 @@ export default class Ball {
         } else if (cornerColision.top || cornerColision.bottom) {
             this._main.vectorMv[0] *= -1;
         }
+    }
+
+
+    _elementsColisionDetection() {
+        const ballHitbox = this._hitbox;
+        const ball = this._main;
+
+        this._colision.elements.forEach(e => {
+            const elementHitbox = {
+                left:   e.main.pos[0],
+                bottom: e.main.pos[1] + e.main.size[1],
+                top:    e.main.pos[1],
+                right:  e.main.pos[0] + e.main.size[0],
+
+
+                collide() {
+                    return (
+                        this.left < ballHitbox.right
+                        && this.right > ballHitbox.left
+                        &&
+                        this.top < ballHitbox.bottom
+                        && this.bottom > ballHitbox.top
+                    );
+                },
+
+
+                yCheckout() {
+                    const topCollisionDetection = (
+                        ballHitbox.bottom - elementHitbox.top < ballHitbox.right - elementHitbox.left
+                        && ballHitbox.bottom - elementHitbox.top < elementHitbox.right - ballHitbox.right
+                        || ballHitbox.bottom - elementHitbox.top < ballHitbox.left - elementHitbox.left
+                        && ballHitbox.bottom - elementHitbox.top < elementHitbox.right - ballHitbox.left
+                    );
+
+                    const bottomCollisionDetection = (
+                        elementHitbox.bottom - ballHitbox.top < ballHitbox.right - elementHitbox.left
+                        && elementHitbox.bottom - ballHitbox.top < elementHitbox.right - ballHitbox.right
+                        || elementHitbox.bottom - ballHitbox.top < ballHitbox.left - elementHitbox.left
+                        && elementHitbox.bottom - ballHitbox.top < elementHitbox.right - ballHitbox.left
+                    );
+
+                    return bottomCollisionDetection || topCollisionDetection;
+                }
+            };
+
+
+            if (elementHitbox.collide()) {
+                if (elementHitbox.yCheckout()) {
+                    this._main.vectorMv[1] *= -1;
+
+                } else {
+                    this._main.vectorMv[0] *= -1;
+                }
+            }
+        });
     }
 }

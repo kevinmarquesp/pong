@@ -7,10 +7,12 @@ const G = {
     // Atalhos para algumas constantes
 
     ballSize: 20,
-    ballVectorMv: [ 5, -2 ],
+    ballVectorMv: [ -4, 2 ],
 
     playersPadding: 10,
+    // playersPadding: 100,
     playersSize: { w: 10, h: 100 },
+    // playersSize: { w: 100, h: 100 },
 
     gameLineWidth: 5,
     gameFontSize: '20px',

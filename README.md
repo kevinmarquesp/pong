@@ -8,5 +8,5 @@
 - [x] Add some log to debug later
 
 - [ ] Make the player behavior
-- [ ] Make the ball colide with corners
-- [ ] Make the ball colide with players
+- [x] Make the ball colide with corners
+- [x] Make the ball colide with players
