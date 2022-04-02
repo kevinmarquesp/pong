@@ -7,6 +7,8 @@
 - [x] Drawn the text and a line in the middle of the canvas
 - [x] Add some log to debug later
 
-- [ ] Make the player behavior
 - [x] Make the ball colide with corners
 - [x] Make the ball colide with players
+- [ ] Debug and improve that
+- [ ] Make the player behavior
+- [ ] Write an english README.md properly...

@@ -10,14 +10,13 @@ const G = {
     ballVectorMv: [ -4, 2 ],
 
     playersPadding: 10,
-    // playersPadding: 100,
     playersSize: { w: 10, h: 100 },
-    // playersSize: { w: 100, h: 100 },
 
     gameLineWidth: 5,
     gameFontSize: '20px',
     gameFontFamilly: 'monospace',
     gameTextPadding: 50,
+    gameStatsColor: '#3b3b3b',
 
     // Definições dos objetos do jogo
 
@@ -43,7 +42,7 @@ const G = {
                     },
 
                     w: G.gameLineWidth,
-                    color: 'lightgray',
+                    color: G.gameStatsColor,
                 },
             },
 
@@ -51,7 +50,7 @@ const G = {
                 Player: {
                     x: G.canvasW / 4,
                     y: G.gameTextPadding,
-                    color: 'lightgray',
+                    color: G.gameStatsColor,
                     text: '0',
                     font: G.gameFontFamilly,
                     size: G.gameFontSize,
@@ -61,7 +60,7 @@ const G = {
                 Opponent: {
                     x: G.canvasW / 4 * 3,
                     y: G.gameTextPadding,
-                    color: 'lightgray',
+                    color: G.gameStatsColor,
                     text: '0',
                     font: G.gameFontFamilly,
                     size: G.gameFontSize,

@@ -42,6 +42,10 @@ export default class Ball {
     }
 
 
+    /*
+     *  Sessão responsável por fazer a bolinha colidir com os objetos
+     */
+
     _cornersColisionDetection() {
         const cornerColision = {
             left:   this._hitbox.top <= 0,
@@ -66,12 +70,16 @@ export default class Ball {
         const ball = this._main;
 
         this._colision.elements.forEach(e => {
+            // Objeto que guarda o a hitbox do elemente e os métodos de colisão
+
             const elementHitbox = {
                 left:   e.main.pos[0],
                 bottom: e.main.pos[1] + e.main.size[1],
                 top:    e.main.pos[1],
                 right:  e.main.pos[0] + e.main.size[0],
 
+
+                // Diz se a bolinha está colidindo com o elemento
 
                 collide() {
                     return (
@@ -84,32 +92,38 @@ export default class Ball {
                 },
 
 
+                // Diz se a colisão foi mais vertical do que horizontal
+
                 yCheckout() {
                     const topCollisionDetection = (
                         ballHitbox.bottom - elementHitbox.top < ballHitbox.right - elementHitbox.left
                         && ballHitbox.bottom - elementHitbox.top < elementHitbox.right - ballHitbox.right
-                        || ballHitbox.bottom - elementHitbox.top < ballHitbox.left - elementHitbox.left
+                        ||
+                        ballHitbox.bottom - elementHitbox.top < ballHitbox.left - elementHitbox.left
                         && ballHitbox.bottom - elementHitbox.top < elementHitbox.right - ballHitbox.left
                     );
 
                     const bottomCollisionDetection = (
                         elementHitbox.bottom - ballHitbox.top < ballHitbox.right - elementHitbox.left
                         && elementHitbox.bottom - ballHitbox.top < elementHitbox.right - ballHitbox.right
-                        || elementHitbox.bottom - ballHitbox.top < ballHitbox.left - elementHitbox.left
+                        ||
+                        elementHitbox.bottom - ballHitbox.top < ballHitbox.left - elementHitbox.left
                         && elementHitbox.bottom - ballHitbox.top < elementHitbox.right - ballHitbox.left
                     );
 
                     return bottomCollisionDetection || topCollisionDetection;
-                }
+                },
             };
 
 
+            // Trecho que usa essas informações para redirecionar a bolinha
+
             if (elementHitbox.collide()) {
                 if (elementHitbox.yCheckout()) {
-                    this._main.vectorMv[1] *= -1;
+                    ball.vectorMv[1] *= -1;
 
                 } else {
-                    this._main.vectorMv[0] *= -1;
+                    ball.vectorMv[0] *= -1;
                 }
             }
         });
