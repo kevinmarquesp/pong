@@ -7,8 +7,8 @@ import Ball from './Components/Ball.js';
 class Game {
     constructor() {
         this._State = {
-            // paused: false,
-            paused: true,
+            paused: false,
+            // paused: true,
             winner: '',
         };
 
@@ -35,8 +35,11 @@ class Game {
     init() {
         this._background.run();
 
+        this._opponent.run({
+            ballY: this._ball.main.pos[1],
+        });
+
         this._player.run();
-        this._opponent.run();
         this._ball.run();
 
         this._checkWinner();

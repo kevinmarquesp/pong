@@ -13,7 +13,13 @@ export default class Opponent {
     get main() { return this._main; }
 
 
-    run() {
+    run(props) {
+        this._mvOpponent(props.ballY);
         this._main.render();
+    }
+
+
+    _mvOpponent(ballY) {
+        this._main.pos[1] = ballY - this._main.pos[1] / 2;
     }
 }
