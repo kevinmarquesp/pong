@@ -14,12 +14,12 @@ export default class Ball {
 
 
     run() {
+        this._main.render();
+
         if (this._colision) {
             this._updateHitbox();
             this._checkColisionProps();
         }
-
-        this._main.render();
     }
 
 
@@ -42,9 +42,7 @@ export default class Ball {
     }
 
 
-    /*
-     *  Sessão responsável por fazer a bolinha colidir com os objetos
-     */
+    /* ===== COLISÃO COM AS BORDARS ===== */
 
     _cornersColisionDetection() {
         const cornerColision = {
@@ -65,67 +63,63 @@ export default class Ball {
     }
 
 
+    /* ===== COLISÃO COM OS ELEMENTOS ===== */
+
     _elementsColisionDetection() {
-        const ballHitbox = this._hitbox;
-        const ball = this._main;
-
         this._colision.elements.forEach(e => {
-            // Objeto que guarda o a hitbox do elemente e os métodos de colisão
+            const eHitbox = this._makeElementHitbox(e);
 
-            const elementHitbox = {
-                left:   e.main.pos[0],
-                bottom: e.main.pos[1] + e.main.size[1],
-                top:    e.main.pos[1],
-                right:  e.main.pos[0] + e.main.size[0],
-
-
-                // Diz se a bolinha está colidindo com o elemento
-
-                collide() {
-                    return (
-                        this.left < ballHitbox.right
-                        && this.right > ballHitbox.left
-                        &&
-                        this.top < ballHitbox.bottom
-                        && this.bottom > ballHitbox.top
-                    );
-                },
-
-
-                // Diz se a colisão foi mais vertical do que horizontal
-
-                yCheckout() {
-                    const topCollisionDetection = (
-                        ballHitbox.bottom - elementHitbox.top < ballHitbox.right - elementHitbox.left
-                        && ballHitbox.bottom - elementHitbox.top < elementHitbox.right - ballHitbox.right
-                        ||
-                        ballHitbox.bottom - elementHitbox.top < ballHitbox.left - elementHitbox.left
-                        && ballHitbox.bottom - elementHitbox.top < elementHitbox.right - ballHitbox.left
-                    );
-
-                    const bottomCollisionDetection = (
-                        elementHitbox.bottom - ballHitbox.top < ballHitbox.right - elementHitbox.left
-                        && elementHitbox.bottom - ballHitbox.top < elementHitbox.right - ballHitbox.right
-                        ||
-                        elementHitbox.bottom - ballHitbox.top < ballHitbox.left - elementHitbox.left
-                        && elementHitbox.bottom - ballHitbox.top < elementHitbox.right - ballHitbox.left
-                    );
-
-                    return bottomCollisionDetection || topCollisionDetection;
-                },
-            };
-
-
-            // Trecho que usa essas informações para redirecionar a bolinha
-
-            if (elementHitbox.collide()) {
-                if (elementHitbox.yCheckout()) {
-                    ball.vectorMv[1] *= -1;
+            if (this._elementCollision(eHitbox)) {
+                if (this._elementYCollisionDirection(eHitbox)) {
+                    this._main.vectorMv[1] *= -1;   // Se houve colisão no eixo Y
 
                 } else {
-                    ball.vectorMv[0] *= -1;
+                    this._main.vectorMv[0] *= -1;   // Se não... foi no eixo X
                 }
             }
         });
+    }
+
+
+    _makeElementHitbox(e) {
+        return {
+            left:   e.main.pos[0],
+            bottom: e.main.pos[1] + e.main.size[1],
+            top:    e.main.pos[1],
+            right:  e.main.pos[0] + e.main.size[0],
+        };
+    }
+
+
+    // Checa se a bolinha está colidindo com o elemento
+
+    _elementCollision(eHitbox) {
+        return (
+            eHitbox.left < this._hitbox.right
+            && eHitbox.right > this._hitbox.left
+            && eHitbox.top < this._hitbox.bottom
+            && eHitbox.bottom > this._hitbox.top
+        );
+    }
+
+
+    // Checa a direção da colisão, se foi feita no eixo Y
+
+    _elementYCollisionDirection(eHitbox) {
+        const topCollisionDetection = (
+            this._hitbox.bottom - eHitbox.top < this._hitbox.right - eHitbox.left
+            && this._hitbox.bottom - eHitbox.top < eHitbox.right - this._hitbox.right
+            || this._hitbox.bottom - eHitbox.top < this._hitbox.left - eHitbox.left
+            && this._hitbox.bottom - eHitbox.top < eHitbox.right - this._hitbox.left
+        );
+
+        const bottomCollisionDetection = (
+            eHitbox.bottom - this._hitbox.top < this._hitbox.right - eHitbox.left
+            && eHitbox.bottom - this._hitbox.top < eHitbox.right - this._hitbox.right
+            || eHitbox.bottom - this._hitbox.top < this._hitbox.left - eHitbox.left
+            && eHitbox.bottom - this._hitbox.top < eHitbox.right - this._hitbox.left
+        );
+
+        return (bottomCollisionDetection || topCollisionDetection);
     }
 }
