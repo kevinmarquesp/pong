@@ -7,16 +7,19 @@ const G = {
     // Atalhos para algumas constantes
 
     ballSize: 20,
-    ballVectorMv: [ -4, 2 ],
+    ballVectorMv: [ 4, 2 ],
 
     playersPadding: 10,
     playersSize: { w: 10, h: 100 },
+    playerUpKey: 'ArrowUp',
+    playerDownKey: 'ArrowDown',
 
     gameLineWidth: 5,
     gameFontSize: '20px',
     gameFontFamilly: 'monospace',
     gameTextPadding: 50,
     gameStatsColor: '#3b3b3b',
+
 
     // Definições dos objetos do jogo
 
@@ -48,7 +51,7 @@ const G = {
 
             Text: {
                 Player: {
-                    x: G.canvasW / 4,
+                    x: G.canvasW / 4 * 3,
                     y: G.gameTextPadding,
                     color: G.gameStatsColor,
                     text: '0',
@@ -58,7 +61,7 @@ const G = {
                 },
 
                 Opponent: {
-                    x: G.canvasW / 4 * 3,
+                    x: G.canvasW / 4,
                     y: G.gameTextPadding,
                     color: G.gameStatsColor,
                     text: '0',

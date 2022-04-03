@@ -4,16 +4,35 @@ import { Rect } from '../Helpers/Objects.js';
 
 export default class Ball {
     constructor(props) {
-        this._colision = props.colision || false;
+        this._colision = props.colision;
 
         this._main = new Rect(G.Deffs().Rect.Ball);
         this._hitbox = {};
+
+        this.loser = {
+            opponent: false,
+            player: false,
+        };
 
         console.log('%c[Components] Ball constructor loaded', 'color: yellow');
     }
 
 
+    get main() { return this._main; }
+
+
+    resetBallPos() {
+        this._main.pos = [
+            G.Deffs().Rect.Ball.x,
+            G.Deffs().Rect.Ball.y,
+        ];
+    }
+
+
     run() {
+        this.loser.opponent = false;
+        this.loser.player = false;
+
         this._main.render();
 
         if (this._colision) {
@@ -46,19 +65,27 @@ export default class Ball {
 
     _cornersColisionDetection() {
         const cornerColision = {
-            left:   this._hitbox.top <= 0,
-            bottom: this._hitbox.right >= G.canvasW,
-            top:    this._hitbox.left <= 0,
-            right:  this._hitbox.bottom >= G.canvasH,
+            left:   this._hitbox.left <= 0,
+            bottom: this._hitbox.bottom >= G.canvasH,
+            top:    this._hitbox.top <= 0,
+            right:  this._hitbox.right >= G.canvasW,
         };
 
-        // TODO // Mudar o comportamento da colisão lateral
-
-        if (cornerColision.left || cornerColision.right) {
+        if (cornerColision.top || cornerColision.bottom) {
             this._main.vectorMv[1] *= -1;
 
-        } else if (cornerColision.top || cornerColision.bottom) {
-            this._main.vectorMv[0] *= -1;
+        } else if (cornerColision.left || cornerColision.right) {
+            this._cornerLateralColision(cornerColision);
+        }
+    }
+
+
+    _cornerLateralColision(cornerColision) {
+        if (cornerColision.left) {
+            this.loser.opponent = true;
+
+        } else if (cornerColision.right) {
+            this.loser.player = true;
         }
     }
 
